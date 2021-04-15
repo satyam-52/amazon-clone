@@ -42,24 +42,27 @@ function Payment() {
     //fancy stripe stuff
     event.preventDefault();
     setProcessing(true);
-
-    const payload = await stripe
-      .confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: elements.getElement(CardElement),
-        },
-      })
-      .then(({ paymentIntent }) => {
-        //paymentIntent = payment confirmation
+/*Removing the backend until I get firebase blaze plan... uncomment this if you have blaze plan*/
+//     const payload = await stripe
+//       .confirmCardPayment(clientSecret, {
+//         payment_method: {
+//           card: elements.getElement(CardElement),
+//         },
+//       })
+//       .then(({ paymentIntent }) => {
+//         //paymentIntent = payment confirmation
 
         db.collection("users")
           .doc(user?.uid)
           .collection("orders")
-          .doc(paymentIntent.id)
+          .doc(user?.email)
+//           .doc(paymentIntent.id)  // uncomment this and remove line 58 if you have firebase blaze plan
           .set({
             basket: basket,
-            amount: paymentIntent.amount,
-            created: paymentIntent.created
+            amount: getBasketValue(basket),
+            created: "18th October, 2021. 04:20pm"
+//             amount: paymentIntent.amount,
+//             created: paymentIntent.created  //Uncomment line 64, 65 and delete line 62, 63 if you have firebase blaze
           });
 
         setSucceeded(true);
@@ -71,7 +74,7 @@ function Payment() {
         });
 
         history.replace("/orders");
-      });
+//       });
   };
 
   const handleChange = (event) => {
