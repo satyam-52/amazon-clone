@@ -1,3 +1,7 @@
+<h1>If you have firebase blaze plan update ./src/Payment.js and ./src/Order.js. You'll have to uncomment/delete a few lines for the backend to work</h1>
+<br><br>
+<hr>
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
